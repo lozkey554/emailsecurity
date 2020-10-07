@@ -1,0 +1,183 @@
+ul{
+    display: block;
+}
+.list{
+    list-style-type: none; 
+    font-size: 14px;
+    margin-left: -30px;
+ 
+}
+.list a{
+    color: #000000;
+    display: block;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    height: 20px;
+}
+.list:hover{
+    background-color: #7952B3;
+    color: white;
+}
+.send{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* .jumbotron{
+    margin: auto;
+    width: 40%;
+    height: 500px;
+    background-color: white;
+} */
+#light{
+    font-weight: lighter;
+    font-size: 14px;
+    color: #7952B3;
+    
+}
+
+
+
+body{
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+/* background-color: black; */
+}
+.w3{
+    background-color: #7952B3;
+    height: 35px;
+}
+
+.fa-user{
+background-color: #7952B3;
+color:white;
+padding: 28px 30px 28px 30px;
+border-radius: 50px;
+font-size: 50px;
+}
+
+.panel{
+    background-color: #000000;
+    color: white;
+}
+
+.panel ul{
+    padding-left:0px;
+
+}
+.panel ul a{
+    color: white;
+
+}
+.panel ul li{
+    list-style-type: none;
+    padding: 10px;
+    display: block;
+}
+
+.panel ul li:hover{
+   background-color: white;
+   
+    color: #000000;
+}
+
+.jumbotron{
+    margin: auto;
+    width: 60%;
+    height: 620px;
+    position: relative;
+    overflow-y: scroll;
+    -ms-overflow-style:none;
+    scrollbar-width: none;
+}
+.jumbotron::-webkit-scrollbar{
+display: none;
+}
+
+.active{
+    background-color: #7952B3;
+    color: white;
+}
+
+
+
+@media screen and (max-width:992px)
+{
+
+#hidesidebar{
+    display:none;
+}
+#clickAdd {
+bottom: 0%;
+position: fixed;
+margin: auto;
+margin-left: 75%;
+margin-bottom: 5%;
+width: 70px;
+height: 70px;
+}
+}
+
+/* responsiveness */
+@media screen and (max-width:992px)
+{
+.jumbotron{
+    margin: auto;
+    width: 80%;
+    margin-top: 60px;
+    height: 600px;
+}
+}
+
+@media screen and (max-width:320px)
+{
+.jumbotron{
+    margin: auto;
+    width: 90%;
+    margin-top: 60px;
+
+}
+}
+
+@media screen and (max-width:414px)
+{
+.jumbotron{
+    margin: auto;
+    width: 80%;
+    margin-top: 30px;
+
+}
+}
+
+@media screen and (max-width:360px)
+{
+.jumbotron{
+    margin: auto;
+    width: 80%;
+    margin-top: 20px;
+}
+
+}
+
+@media screen and (max-width:375px)
+{
+.jumbotron{
+    margin: auto;
+    width: 90%;
+    margin-top: 50px;
+}
+
+}
+
+@media screen and (max-width:280px)
+{
+.jumbotron{
+    margin: auto;
+    width: 90%;
+    margin-top: 20px;
+}
+
+}
