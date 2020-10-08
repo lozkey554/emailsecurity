@@ -324,6 +324,7 @@ class mail{
 
         $status = "";
         $headers = "";
+       
         if(empty($subject)){
             $subject = "No Subject";
         }
@@ -380,7 +381,7 @@ class mail{
             }
             
         }
-            return json_encode(["status"=>$status, "code"=>$code]);
+            // return json_encode(["code"=>$code]);
         
     }
             
