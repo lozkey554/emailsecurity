@@ -25,7 +25,7 @@
         .jumbotron{
             margin: auto;
             width: 50%;
-            height: 500px;
+            height: fit-content;
             background-color: white;
         }
 
@@ -35,7 +35,7 @@
     margin: auto;
     width: 80%;
     margin-top: 60px;
-    height: 600px;
+    height: fit-content;
 }
 
 }
@@ -47,7 +47,7 @@
     margin: auto;
     width: 80%;
     margin-top: 60px;
-    height: 600px;
+    height: fit-content;
 }
 }
 
@@ -156,12 +156,59 @@
         
             <div class="col-md-12 mt-4">
                 
-                <p style="font-size: 18px;font-weight: bold;"> <span style="font-size:18px;"><?php echo $draft["user_id"]; ?> </span> <span style="font-size:14px; font-weight: lighter;"><?php echo $dayago; ?></span> </p> <hr>
+                <p style="font-size: 18px;font-weight: bold;"> <span style="font-size:18px;"><?php echo $draft["user_id"]; ?> </span> <span style="font-size:14px; font-weight: lighter;"><?php echo $dayago; ?></span> <button class="btn btn-secondary btn-sm" id="reply" name="reply" style="float: right;"> Send </button> </p> <hr>
             </div>
-               <div class="col-md-12" style="width: fit-content;">
+               <div class="col-md-12 hide-message" style="width: fit-content;">
                 <?php echo $message; ?>
             </div>
+        </div>
+
+
+        <div class="input-group" id="response" style="display: none;">
+            
+                <div class="col-sm-7 mt-4" id="messageview">
+                <div class="input-group mb-3">
+            <label for="from" style="font-size:18px">From</label>
+            <div class="input-group-prepend" style="margin-left: 20px;">
+                <span class="input-group-text" id="basic-addon1"><img src="../images/icons/Email_48px.png" alt="" width="20" height="20"></span>
+            </div>
+            <input type="email" class="form-control" id="senderemail" value="<?php echo $_SESSION["email"]; ?>" aria-label="Email" aria-describedby="basic-addon1" disabled>
+        </div><hr>
+        <div class="input-group">
+            <label for="from" style="font-size:18px">To</label>
+            <div class="input-group-prepend" style="margin-left: 20px;">
+                <span class="input-group-text" id="basic-addon1"><img src="../images/icons/Email_48px.png" alt="" width="20" height="20"></span>
+            </div>
+            <input type="email" class="form-control" id="receiveremail" placeholder="Receiver Email Address" aria-label="Email" aria-describedby="basic-addon1" required>
         </div> 
+        <p class="alert alert-danger" id="emailinvalid" style="margin-left: 40px;display: none;"></p>
+
+        <hr>
+
+
+                <input type="text" class="form-control" id="subject" placeholder="Subject (optional)" aria-label="Email" aria-describedby="basic-addon1" style="height: 50px;">
+                    <textarea name="composemail" id="composemail" placeholder="Reply Message" aria-label="Email" aria-describedby="basic-addon1" class="form-control" cols="5" rows="10" style="resize: none;" required> <?php echo $message; ?></textarea>
+                
+                    <p style="float:right">
+                    <button class="btn btn-primary btn-md" id="encrypt"> Encrypt Message <img src="../images/loading51.gif" width="30" height="20" alt="" id="encloading" style="display: none;"> </button>
+                    <button class="btn btn-success btn-md sendmail"> Send Message <img src="../images/loading51.gif" width="30" height="20" alt="" id="sendloading" style="display: none;"> </button></p>
+                    <audio id="sound" style="display:none;" controls>
+                        <source src="../insight.mp3" type="audio/mpeg">
+        
+                    </audio>
+                </div>
+
+                <div class="enc-panel" style="display:none;">
+                    <label for="encryption-key">Enter a Key to secure Message</label>
+                    <input type="text" name="enc-key" id="enc-key" placeholder="enter key here" class="form-control" value="" style="width: 50%;">
+                    <button class="btn btn-success btn-md" id="enc-message"> Send Message <img src="../images/loading51.gif" width="30" height="20" alt="" id="eloading" style="display: none;"> </button>
+                    <p class="text-danger">Note down this key and send it to the recepient to decrypt the message</p>
+                </div>
+            
+        </div>
+
+
+
             
     </div>
 
@@ -180,6 +227,118 @@
                 }
             
             });
+
+
+            $("#reply").on("click", function(e){
+                e.preventDefault();
+                $("#response").show();
+                $(".hide-message").hide();
+            });
+
+
+        $("#encrypt").on("click", function(){
+            var rm = $("#receiveremail").val();
+            var message = $("#composemail").val();
+            if(rm == ""){
+                alert("Enter Receiver Email");
+
+                } 
+                else if(message == ""){
+                alert("Enter Message");
+                }
+            else{
+                $("#messageview").hide();
+                $(".enc-panel").show();
+            }
+            
+        });
+
+
+        $("#enc-message").on("click", function(){
+                var rm = $("#receiveremail").val();
+                var sm = $("#senderemail").val();
+                var message = $("#composemail").val();
+                var key = $("#enc-key").val();
+                var sub = $("#subject").val();
+
+                var array = [sm, rm, sub, message, key];
+
+                if(key == ""){
+                    alert("You must provide a key");
+                }
+                else{
+                    $.ajax({
+                        url: "../app.controller/appFunctions.php",
+                        type: "POST",
+                        beforeSend: function(){
+                            $("#eloading").show().delay(1000);
+                        },
+                        data: {
+                            "function": "encrypt",
+                            "array": array
+                        },
+                        success: function(){
+                            $("#eloading").hide(function(){
+                            document.getElementsById("sound").play();
+
+                        });
+                        }
+                    });
+
+                }
+    
+        });
+
+    $(".sendmail").on("click", function(){
+        var sm = $("#senderemail").val();
+        var rm = $("#receiveremail").val();
+        var key = $("#enc-key").val();
+        var sub = $("#subject").val();
+        var message = $("#composemail").val();
+
+        var array = [sm, rm, sub, message, key];
+
+        if(rm == ""){
+            alert("Enter Receiver Email");
+
+        } 
+        else if(message == ""){
+            alert("Enter Message");
+        }
+        else{
+            $.ajax({
+                url: "../app.controller/appFunctions.php",
+                type: "POST",
+                data: {
+                    "function": "composemail",
+                    "array": array
+                },
+                dataType: "json",
+                beforeSend: function(){
+                 
+                 $("#sendloading").show().delay(1000);
+             },
+                success: function(tx){
+                    if(tx.code == 1){
+                        $("#sendloading").hide(function(){
+                            document.getElementById("sound").play();
+                        });
+                    }
+                        else if(tx.code == 2)
+                        {
+                            $("#emailinvalid").html("Email is not found").show(function(){
+                            $("#sendloading").hide(1000);
+                       
+                            });
+                        }
+               
+
+                }
+                
+            });
+        }
+    });
+
             
 
         });

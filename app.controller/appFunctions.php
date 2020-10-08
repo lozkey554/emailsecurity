@@ -381,7 +381,7 @@ class mail{
             }
             
         }
-            // return json_encode(["code"=>$code]);
+            return json_encode(["code"=>$code]);
         
     }
             

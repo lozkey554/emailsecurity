@@ -36,7 +36,7 @@
     margin: auto;
     width: 80%;
     margin-top: 60px;
-    height: 600px;
+    height: fit-content;
 }
 
 }
