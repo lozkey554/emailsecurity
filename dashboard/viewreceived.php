@@ -369,20 +369,18 @@ if(isset($_POST["decrypt"])){
                 url: "../app.controller/appFunctions.php",
                 type: "POST",
                 beforeSend: function(){
-                    // alert(0);
+                 
                     $("#sendloading").show().delay(1000);
                 },
                 data: {
                     "function": "composemail",
                     "array": array
                 },
-                // dataType: "json",
+              
                 success: function(tx){
                 
                     $("#sendloading").hide(function(){
-               
                         document.getElementById("sound").play();
-                    
                 });
 
                 }
