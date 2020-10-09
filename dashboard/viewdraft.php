@@ -279,7 +279,7 @@
                         },
                         success: function(){
                             $("#eloading").hide(function(){
-                            document.getElementsById("sound").play();
+                            document.getElementById("sound").play();
 
                         });
                         }

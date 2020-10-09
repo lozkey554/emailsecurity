@@ -205,7 +205,7 @@
         <div class="input-group" id="response" style="display: none;">
             
             <div class="col-sm-7 mt-4" id="messageview">
-            <input type="text" class="form-control" id="subject" placeholder="Subject (optional)" aria-label="Email" aria-describedby="basic-addon1" style="height: 50px;">
+            <input type="text" class="form-control" id="subject" value="<?php $row["subject"]; ?>" placeholder="Subject (optional)" aria-label="Email" aria-describedby="basic-addon1" style="height: 50px;" disabled>
                 <textarea name="composemail" id="composemail" placeholder="Reply Message" aria-label="Email" aria-describedby="basic-addon1" class="form-control" cols="5" rows="10" style="resize: none;" required></textarea>
             <input type="text" value="<?php echo $_SESSION["email"]; ?>" id="from_me" style="display: none;">
             <input type="text" value="<?php echo $data["email"]; ?>" id="to" style="display: none;">
@@ -286,7 +286,7 @@
                         },
                         success: function(){
                             $("#eloading").hide(function(){
-                            document.getElementsById("sound").play();
+                            document.getElementById("sound").play();
 
                         });
                         }
